@@ -73,10 +73,6 @@ const ETAPAS = [
       { id: 'motivosOutro', tipo: 'texto', t: 'Qual outro motivo?', ph: 'Conta pra gente', se: temOutro('motivos') },
       { id: 'nutriAntes', tipo: 'escolha', t: 'Já se consultou com uma nutri antes?', ops: [['sim', 'Sim, já', '🔁'], ['nao', 'É a primeira vez', '🌱']],
         reage: v => v === 'nao' ? 'Primeira vez! Prometo que vai ser leve.' : 'Bem-vinda de volta ao processo.' },
-      { id: 'motivacao', tipo: 'escala', t: 'O quanto você está motivada pra atingir seu objetivo?', ops: [
-        [1, '🫠', 'Nada'], [2, '😐', 'Pouco'], [3, '🙂', 'Mais ou menos'], [4, '😃', 'Bastante'], [5, '🔥', 'Muito']],
-        reage: v => v >= 4 ? 'Essa energia a gente aproveita!' : 'Tudo bem. Motivação vem com o processo, não antes.' },
-      { id: 'importanciaPorque', tipo: 'texto-longo', t: 'E por quê?', ph: 'Escreve do seu jeito…', opcional: true }
     ]},
   { id: 'rotina', titulo: 'Seu dia a dia.', sub: 'Café com contexto: como é a sua rotina de verdade.', tema: 't-musgo',
     fig: { tipo: 'redonda', cor: 't-musgo', g: '☕', s: 'café com', c: 'contexto', rot: -7 },
