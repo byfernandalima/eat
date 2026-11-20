@@ -1,0 +1,46 @@
+/* ===== agenda e financeiro ===== */
+.painel.agenda{max-width:none}
+main:has(.painel.agenda){max-width:1180px}
+.agenda-barra{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.agenda-nav{display:flex;gap:4px}
+.agenda-nav button{border:2px solid var(--linha);background:#fff;border-radius:10px;padding:7px 12px;font-weight:700;cursor:pointer}
+.agenda-titulo{font-family:var(--titulo);font-size:20px}
+.agenda-titulo::first-letter{text-transform:uppercase}
+.agenda-vistas{margin:0 0 0 auto;max-width:280px}
+.ag-grade-wrap{overflow-x:auto;background:var(--papel);border:1px solid var(--linha);border-radius:18px;padding:8px}
+.ag-grade{display:grid;gap:0 4px;min-width:min-content}
+.ag-horas div{font-size:11px;color:var(--suave);text-align:right;padding-right:6px;box-sizing:border-box}
+.ag-horas .ag-cab{height:30px}
+.ag-cab{height:30px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;text-transform:capitalize}
+.ag-cab.hoje{background:var(--bordo);color:var(--creme);border-radius:10px}
+.ag-col{position:relative;background:repeating-linear-gradient(to bottom,#fff 0,#fff 51px,var(--linha) 51px,var(--linha) 52px);border-radius:8px;cursor:copy}
+.ag-col.hoje{box-shadow:inset 0 0 0 2px var(--lima)}
+.ag-ev{position:absolute;box-sizing:border-box;border:none;border-left:4px solid var(--bordo);border-radius:7px;padding:3px 6px;font-size:12px;text-align:left;overflow:hidden;cursor:pointer;line-height:1.25;color:var(--bordo);background:var(--creme)}
+.ag-ev small{display:block;opacity:.75}
+.ev-agendada{background:#fff;border-left-color:var(--bordo);box-shadow:inset 0 0 0 1px var(--linha)}
+.ev-confirmada{background:var(--lima);border-left-color:var(--musgo)}
+.ev-realizada{background:#d8dcc4;border-left-color:var(--musgo)}
+.ev-faltou{background:#ffd9d2;border-left-color:var(--laranja)}
+.ev-cancelada{background:#eee;border-left-color:#999;text-decoration:line-through;opacity:.7}
+.ev-bloqueio{background:repeating-linear-gradient(45deg,#e9e5d0 0 6px,#ddd7bb 6px 12px);border-left-color:var(--musgo);color:var(--suave)}
+.legenda-status{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.legenda-status span{font-size:12px;font-weight:700;padding:4px 10px;border-radius:99px;border-left:4px solid}
+.ag-mes{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;background:var(--papel);border:1px solid var(--linha);border-radius:18px;padding:8px}
+.ag-mes-cab{text-align:center;font-size:12px;font-weight:700;color:var(--suave);text-transform:uppercase}
+.ag-mes-dia{background:#fff;border-radius:10px;min-height:92px;padding:4px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.ag-mes-dia.fora{opacity:.45}
+.ag-mes-dia.hoje{box-shadow:inset 0 0 0 2px var(--laranja)}
+.ag-mes-num{align-self:flex-start;border:none;background:none;font-weight:800;cursor:pointer;padding:2px 4px;border-radius:6px}
+.ag-mes-num:hover{background:var(--lima)}
+.ag-chip{border:none;border-left:3px solid;border-radius:5px;font-size:11px;text-align:left;padding:2px 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
+@media (max-width:600px){.ag-mes-dia{min-height:64px}.ag-chip{font-size:10px}.agenda-vistas{margin:0;max-width:none;width:100%}}
+.fin-receita b{color:#2f3b06}
+.fin-despesa b{color:#8a1300}
+.ind.negativo b{color:var(--laranja)}
+.meta-barra{display:flex;height:16px;background:#fff;border-radius:99px;overflow:hidden;border:1px solid var(--linha)}
+.meta-barra i{display:block;height:100%;background:var(--musgo)}
+.meta-barra i.prev{background:repeating-linear-gradient(45deg,var(--lima) 0 6px,#d7ec98 6px 12px)}
+.topo .usuario{flex-wrap:wrap;justify-content:flex-end}
+@media (max-width:760px){.usuario .btn{padding:6px 9px;font-size:12px}}
+.bloco-sala{background:#fff;border-radius:14px;padding:12px;margin:10px 0}
+.bloco-sala[hidden]{display:none}

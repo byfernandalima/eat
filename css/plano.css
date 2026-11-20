@@ -1,0 +1,55 @@
+/* ===== plano alimentar, biblioteca e prescrições ===== */
+.busca-alimento{position:relative;margin-top:8px}
+.busca-lista{position:absolute;left:0;right:0;top:100%;z-index:30;background:#fff;border-radius:12px;box-shadow:0 10px 30px rgba(54,1,5,.18);max-height:320px;overflow:auto}
+.busca-lista:empty{display:none}
+.busca-item{display:flex;flex-direction:column;align-items:flex-start;gap:2px;width:100%;text-align:left;border:none;background:none;padding:9px 12px;cursor:pointer;border-bottom:1px solid var(--linha);font-size:14px;font-weight:600}
+.busca-item small{font-weight:500;color:var(--suave);font-size:12px}
+.busca-item:hover,.busca-item.sel{background:var(--lima)}
+.resumo-sticky{position:sticky;top:96px;z-index:15}
+.resumo-plano{display:flex;flex-wrap:wrap;gap:6px 18px;background:var(--bordo);color:var(--creme);border-radius:16px;padding:12px 16px;margin:12px 0}
+.rp-item{display:flex;flex-direction:column;min-width:96px}
+.rp-item small{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.75}
+.rp-item b{font-family:var(--titulo);font-size:20px;font-weight:800}
+.rp-item span{font-size:12px;opacity:.85}
+.rp-item.fora b{color:var(--laranja)}
+.refeicao{background:var(--papel);border:1px solid var(--linha);border-radius:18px;padding:14px;margin:12px 0}
+.ref-cab{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.ref-cab input[type=time]{max-width:110px}
+.painel .ref-cab .nome-ref{flex:1;min-width:150px;font-family:var(--titulo);font-weight:800;font-size:17px}
+.total-ref{font-weight:700;font-size:14px;color:var(--suave);white-space:nowrap}
+.ref-acoes{display:flex;gap:10px}
+.ref-acoes .link{padding:0 2px;font-size:17px;text-decoration:none}
+.ref-acoes .link:disabled{opacity:.3;cursor:default}
+.item{background:#fff;border-radius:12px;padding:8px 10px;margin-top:6px}
+.item-linha,.sub-linha{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.nome-item{flex:1;min-width:150px;font-weight:600;font-size:14px}
+.nome-item small{font-weight:500;color:var(--suave)}
+.kcal-item{font-size:13px;color:var(--suave);min-width:62px;text-align:right}
+.qtd-campo{display:flex;gap:4px}
+.painel .qtd-campo input.campo.qtd{width:72px;flex:none}
+.painel .qtd-campo select.campo.un{width:auto;max-width:200px;flex:none}
+.item-linha .link,.sub-linha .link{padding:0 4px;text-decoration:none;font-size:16px}
+.subs{margin:8px 0 2px 14px;padding-left:10px;border-left:3px solid var(--lima)}
+.subs[hidden]{display:none}
+.subs-tit{font-size:12px;font-weight:700;color:var(--suave);text-transform:uppercase;letter-spacing:.08em}
+.sub-linha{margin-top:4px}
+.painel textarea.obs-ref{min-height:44px;font-size:14px;margin-top:8px}
+.equiv{display:flex;flex-direction:column;gap:6px}
+.equiv-linha{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border-radius:12px;padding:8px 12px;font-weight:600;font-size:14px;border:2px solid transparent}
+.equiv-linha.on{border-color:var(--lima)}
+.equiv-linha small{font-weight:500;color:var(--suave)}
+.stepper{display:flex;align-items:center;gap:8px}
+.stepper button{width:32px;height:32px;border-radius:10px;border:2px solid var(--linha);background:var(--papel);font-size:18px;font-weight:700;cursor:pointer}
+.equiv-n{min-width:30px;text-align:center;font-family:var(--titulo);font-weight:800;font-size:18px}
+.opcoes-metodo{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.opcoes-metodo .op{flex-direction:column;align-items:flex-start}
+.fav-item{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border-radius:12px;padding:10px 12px;margin-top:8px}
+.fav-item .btn{padding:8px 12px;font-size:14px}
+.barra-salvar{position:sticky;bottom:10px;z-index:15;background:var(--creme);padding:10px;border-radius:16px;box-shadow:0 -4px 20px rgba(54,1,5,.08)}
+.comp-linha{display:grid;grid-template-columns:2fr 1fr 90px auto;gap:6px;align-items:center;margin-top:6px}
+.presc-item{background:#fff;border-radius:14px;padding:12px 14px;margin-top:10px}
+.grupo-equiv{background:#fff;border-radius:14px;padding:12px 14px;margin-top:10px}
+.grupo-equiv .chips{margin-top:8px}
+.grupo-equiv .chip{cursor:default;font-size:13px;padding:6px 10px}
+.modal{position:fixed;inset:0;background:rgba(54,1,5,.45);z-index:100;display:grid;place-items:center;padding:16px}
+.modal-caixa{max-width:480px;width:100%;max-height:90vh;overflow:auto;margin:0}

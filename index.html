@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#E8E5CA">
+<title>ëat intelligence · o consultório de nutrição com critério</title>
+<meta name="description" content="Anamnese que a paciente gosta de responder, avaliação, plano alimentar, prescrições, agenda e financeiro num só lugar. Para nutricionistas.">
+<script>
+  // links antigos de anamnese (com ?n= ou ?nome=) continuam funcionando: vão direto para o questionário
+  (function () { var q = new URLSearchParams(location.search); if (q.has('n') || q.has('nome') || q.has('nutri')) location.replace('anamnese.html' + location.search); })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=DM+Sans:opsz,wght@9..40,400..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/eat.css?v=20261120h">
+<link rel="stylesheet" href="css/home.css?v=20261120h">
+</head>
+<body class="home">
+<div class="listras" aria-hidden="true"><i></i><i></i></div>
+
+<header class="home-topo">
+  <div class="home-in home-topo-in">
+    <a class="home-logo" href="#" aria-label="ëat intelligence, início">ëat<small>intelligence</small></a>
+    <nav class="home-nav" aria-label="Seções">
+      <a href="#recursos">Recursos</a>
+      <a href="#como">Como funciona</a>
+      <a href="#paciente">Para a paciente</a>
+    </nav>
+    <a class="btn sec home-entrar" href="painel.html">Entrar</a>
+  </div>
+</header>
+
+<main>
+  <!-- hero -->
+  <section class="home-in hero-home">
+    <div class="hero-texto">
+      <p class="kicker-home">para nutricionistas</p>
+      <h1>Consulta com critério, do primeiro oi ao plano.</h1>
+      <p class="serif-home">o jeito inteligente de consumir, agora dentro do seu consultório.</p>
+      <p class="hero-sub">Anamnese que a paciente <b>gosta</b> de responder, avaliação, plano alimentar, prescrições, agenda e financeiro. Tudo num lugar só, sem planilha perdida e sem PDF solto no WhatsApp.</p>
+      <div class="hero-acoes">
+        <a class="btn pri" href="painel.html#criar">Criar minha conta grátis</a>
+        <a class="btn sec" href="painel.html">Já tenho conta</a>
+      </div>
+      <p class="nota">Sem cartão de crédito. Seus dados e os das pacientes ficam protegidos.</p>
+    </div>
+    <div class="hero-arte" aria-hidden="true">
+      <div class="ee-grande-home"><i class="olho a"></i><i class="olho b"></i><span class="letra">e</span></div>
+      <div class="fig t-lima redonda" style="--rot:8deg;top:2%;right:4%"><span class="g">não é dieta.</span><span class="s">é critério.</span></div>
+      <div class="fig t-creme" style="--rot:-6deg;bottom:16%;left:0"><span class="g">pergunta boa</span><span class="s">&gt; resposta pronta</span></div>
+      <div class="fig t-coral" style="--rot:5deg;bottom:2%;right:10%"><span class="g">wellness</span><span class="s">sem neura.</span></div>
+      <div class="fig t-musgo redonda" style="--rot:-9deg;top:8%;left:4%"><span class="g">☕</span><span class="s">café com</span><span class="c">contexto</span></div>
+    </div>
+  </section>
+
+  <!-- faixa manifesto -->
+  <section class="faixa-bordo">
+    <div class="home-in">
+      <p class="faixa-titulo">Gen Z, mas com bibliografia.</p>
+      <p class="faixa-sub">Tabela TACO, curvas da OMS, curvas brasileiras de gestação. Ciência de verdade por trás de cada número, num visual que dá vontade de usar.</p>
+    </div>
+  </section>
+
+  <!-- recursos -->
+  <section class="home-in secao" id="recursos">
+    <p class="kicker-home">o que tem dentro</p>
+    <h2>Tudo que a consulta pede.</h2>
+    <div class="recursos">
+      <article class="recurso t-lima">
+        <span class="rec-ic" aria-hidden="true">💬</span>
+        <h3>Anamnese interativa</h3>
+        <p>Uma pergunta por vez, com pontos e figurinhas. A paciente responde pelo celular e tudo cai organizado na ficha, com os pontos de atenção já destacados.</p>
+      </article>
+      <article class="recurso t-creme">
+        <span class="rec-ic" aria-hidden="true">📏</span>
+        <h3>Avaliação e exames</h3>
+        <p>Antropometria com 5 protocolos e gráficos de evolução, curvas da OMS para crianças, ganho de peso gestacional, exames com referências e pedido em PDF.</p>
+      </article>
+      <article class="recurso t-coral">
+        <span class="rec-ic" aria-hidden="true">🥗</span>
+        <h3>Plano alimentar</h3>
+        <p>Por alimentos, equivalentes ou qualitativo. Tabela TACO completa, substituições com as mesmas calorias, receitas, lista de compras e PDF bonito para a paciente.</p>
+      </article>
+      <article class="recurso t-creme">
+        <span class="rec-ic" aria-hidden="true">📝</span>
+        <h3>Prescrições e documentos</h3>
+        <p>Suplementos, fórmulas manipuladas, atestados e declarações com seu papel timbrado e sua assinatura. Para validade jurídica, um clique leva ao assinador do gov.br.</p>
+      </article>
+      <article class="recurso t-musgo">
+        <span class="rec-ic" aria-hidden="true">📅</span>
+        <h3>Agenda e teleconsulta</h3>
+        <p>Dia, semana e mês, encaixes e bloqueios. A paciente confirma pelo link do WhatsApp, a consulta online vai pelo Google Meet e tudo aparece no seu Google Agenda.</p>
+      </article>
+      <article class="recurso t-creme">
+        <span class="rec-ic" aria-hidden="true">💰</span>
+        <h3>Financeiro</h3>
+        <p>Receitas, despesas, meta do mês e previsão pela agenda. Recibo numerado em PDF, com valor por extenso, em segundos.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- paciente -->
+  <section class="secao-paciente" id="paciente">
+    <div class="home-in paciente-grade">
+      <div>
+        <p class="kicker-home">para a paciente</p>
+        <h2>A anamnese que ninguém tem preguiça de responder.</h2>
+        <p>Formulário gigante cansa. Aqui a paciente conversa com o <b>ë</b>: uma pergunta por tela, copos de água para tocar, carinhas para dar nota e figurinhas a cada etapa concluída. Leva uns 10 minutos e salva sozinha se ela precisar parar.</p>
+        <p>No final, ela autoriza o envio (LGPD) e as respostas chegam na sua ficha. Antes da primeira consulta, você já sabe por onde começar.</p>
+        <a class="btn sec" href="anamnese.html">Ver como a paciente vê ↗</a>
+      </div>
+      <div class="celular" aria-hidden="true">
+        <div class="cel-tela">
+          <div class="cel-topo"><b>ëat</b><span class="cel-pts">●● 120 pts</span></div>
+          <div class="cel-barra"><i style="width:100%"></i><i style="width:100%"></i><i style="width:40%"></i><i></i><i></i></div>
+          <div class="cel-guia"><span class="cel-ee"><i></i><i></i>e</span><span class="cel-balao">Hidratação respeitável. 💧</span></div>
+          <p class="cel-perg">Quanta água você bebe por dia?</p>
+          <div class="cel-copos"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div>
+          <p class="cel-total">10 copos <small>≈ 2,0 litros por dia</small></p>
+          <span class="cel-btn">Continuar →</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- como funciona -->
+  <section class="home-in secao" id="como">
+    <p class="kicker-home">como funciona</p>
+    <h2>Três passos e você já atende.</h2>
+    <ol class="passos">
+      <li><span class="passo-n">1</span><h3>Crie sua conta</h3><p>Nome, e-mail e senha. Depois, no perfil, coloque CRN, assinatura e papel timbrado.</p></li>
+      <li><span class="passo-n">2</span><h3>Mande o link</h3><p>Copie seu link de anamnese e envie pelo WhatsApp. A ficha da paciente é criada sozinha quando ela responde.</p></li>
+      <li><span class="passo-n">3</span><h3>Consulte com tudo pronto</h3><p>Pontos de atenção, avaliação, cálculo energético e plano alimentar no mesmo lugar. Imprima ou envie em PDF.</p></li>
+    </ol>
+  </section>
+
+  <!-- confiança -->
+  <section class="home-in secao confianca">
+    <div class="conf-item"><b>Dados protegidos</b><span>Cada nutricionista vê só as próprias pacientes. Fotos e exames ficam em pastas privadas.</span></div>
+    <div class="conf-item"><b>LGPD</b><span>A paciente autoriza o envio das respostas antes de mandar.</span></div>
+    <div class="conf-item"><b>Fontes citadas</b><span>TACO 4ª ed. (NEPA/Unicamp), OMS 2006/2007, Kac et al. 2021, Philippi 1999.</span></div>
+  </section>
+
+  <!-- cta final -->
+  <section class="cta-final">
+    <div class="home-in">
+      <div class="fig t-coral" style="--rot:-4deg;position:static;display:inline-flex;margin-bottom:18px"><span class="g" style="font-size:30px;letter-spacing:-.04em">ëat</span><span class="c">intelligence</span></div>
+      <h2>Bora começar?</h2>
+      <p class="serif-home">tudo o que a gente consome vira a gente.</p>
+      <div class="hero-acoes" style="justify-content:center">
+        <a class="btn pri" href="painel.html#criar">Criar minha conta grátis</a>
+        <a class="btn sec" href="painel.html">Entrar</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="home-rodape">
+  <div class="home-in">
+    <span><b>ëat intelligence</b> · o jeito inteligente de consumir</span>
+    <span>Sem guru, sem julgar o prato alheio.</span>
+  </div>
+</footer>
+</body>
+</html>
