@@ -217,7 +217,7 @@ const ETAPAS = [
         reage: v => v.includes('compulsaoCarbo') ? 'Vontade de doce na TPM tem explicação. E tem estratégia.' : '' }
     ]},
   { id: 'fim', titulo: 'Última dose.', sub: 'Quase lá. Só mais três perguntinhas.', tema: 't-creme',
-    fig: { tipo: 'retang', cor: 't-coral', g: 'ëat', s: '', c: 'intelligence', rot: -6, logo: true },
+    fig: { tipo: 'retang', cor: 't-coral', g: 'ëat', s: '', c: 'elligence', rot: -6, logo: true },
     perguntas: [
       { id: 'saudeGeral', tipo: 'escala', t: 'De modo geral, como você classifica sua saúde?', ops: [
         [1, '😣', 'Ruim'], [2, '😕', 'Regular'], [3, '😐', 'Ok'], [4, '🙂', 'Boa'], [5, '🌟', 'Ótima']] },
@@ -365,7 +365,8 @@ async function gerarPDF(reg, botao, janela) {
     const cabecalho = () => {
       doc.setFillColor(...COR.bordo); doc.rect(0, 0, W, 30, 'F');
       doc.setTextColor(...COR.creme); doc.setFont('helvetica', 'bold'); doc.setFontSize(24); doc.text('ëat', M, 21);
-      doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5); doc.text('INTELLIGENCE', M + 15.5, 21, { charSpace: 0.6 });
+      const largEat = doc.getTextWidth('ëat');
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(10); doc.text('elligence', M + largEat + 0.8, 15.5);
       doc.setFontSize(10); doc.text('Pré-atendimento nutricional', W - M, 16, { align: 'right' });
       doc.setFontSize(9); doc.text(new Date(reg.enviadoEm || Date.now()).toLocaleDateString('pt-BR'), W - M, 22, { align: 'right' });
       doc.setFillColor(...COR.laranja); doc.rect(W - 9, 30, 2.4, H - 30, 'F'); doc.rect(W - 5, 30, 2.4, H - 30, 'F');

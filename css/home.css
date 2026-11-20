@@ -4,8 +4,15 @@ html{scroll-behavior:smooth}
 .home-in{max-width:1120px;margin:0 auto;padding:0 20px}
 .home-topo{position:sticky;top:0;z-index:20;background:rgba(232,229,202,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .home-topo-in{display:flex;align-items:center;gap:20px;height:68px}
-.home-logo{font-family:var(--titulo);font-weight:800;font-size:28px;letter-spacing:-.04em;color:var(--bordo);text-decoration:none;display:flex;align-items:baseline;gap:6px}
-.home-logo small{font-family:var(--texto);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+.home-logo{font-size:34px;text-decoration:none}
+/* logotipo ëatelligence: "ëat" com trema laranja + lima, "elligence" pequeno no alto */
+.marca{font-family:var(--titulo);font-weight:800;letter-spacing:-.045em;line-height:1;color:var(--bordo);white-space:nowrap;display:inline-block;padding-top:.26em}
+.marca .m-e{position:relative;display:inline-block}
+.marca .m-e i{position:absolute;top:.0em;width:.25em;height:.25em;border-radius:50%;background:var(--laranja);left:0}
+.marca .m-e i+i{left:auto;right:-.04em;background:var(--lima)}
+.marca .m-ell{font-family:var(--texto);font-weight:400;letter-spacing:-.01em;font-size:.4em;position:relative;top:-.78em;margin-left:.1em}
+.marca-grande{font-size:clamp(64px,11vw,120px);margin-bottom:24px}
+.marca-rodape{font-size:22px;color:var(--creme);padding-top:.15em}
 .home-nav{display:flex;gap:22px;margin-left:auto}
 .home-nav a{color:var(--bordo);text-decoration:none;font-weight:600;font-size:15px}
 .home-nav a:hover{text-decoration:underline}
