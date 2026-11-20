@@ -47,7 +47,7 @@ function duracaoSono(a) {
 const fmtHoras = h => { const H = Math.floor(h), M = Math.round((h - H) * 60); return M ? `${H}h${String(M).padStart(2, '0')}` : `${H}h`; };
 const ETAPAS = [
   { id: 'voce', titulo: 'Prazer, você.', sub: 'Primeiro o básico. Leva menos de um minuto.', tema: 't-lima',
-    fig: { tipo: 'retang', cor: 't-coral', g: 'prazer,', s: 'eu.', rot: -5 },
+    fig: { tipo: 'retang', cor: 't-coral', g: 'boa!', s: '{nome}', rot: -5 }, // {nome} = primeiro nome da paciente
     perguntas: [
       { id: 'nome', tipo: 'texto', t: 'Qual é o seu nome completo?', ph: 'Seu nome completo', auto: 'name',
         reage: v => `Anotado, ${primeiro(v)}. Prazer! A partir de agora é papo reto.` },

@@ -78,6 +78,9 @@ function confete(qtd = 70) {
   }
 }
 function figurinha(f, i) {
+  // {nome} vira o primeiro nome da paciente (com a inicial maiúscula); sem nome, a linha some
+  const nomeFig = (t) => t && t.includes('{nome}') ? t.replace('{nome}', (n => n && n[0].toUpperCase() + n.slice(1))(primeiro(S.a.nome)) || '').trim() : t;
+  f = { ...f, g: nomeFig(f.g), s: nomeFig(f.s), c: nomeFig(f.c) };
   const cls = 'fig ' + f.cor + (f.tipo === 'redonda' ? ' redonda' : f.tipo === 'oval' ? ' oval' : '');
   return h('div', { class: cls, style: `--rot:${f.rot || -4}deg;--i:${i || 0}` },
     f.logo ? h('span', { class: 'g', style: 'font-size:34px;letter-spacing:-.04em' }, 'ëat') : h('span', { class: 'g' }, f.g),
