@@ -76,9 +76,6 @@ const ETAPAS = [
       { id: 'motivacao', tipo: 'escala', t: 'O quanto você está motivada pra atingir seu objetivo?', ops: [
         [1, '🫠', 'Nada'], [2, '😐', 'Pouco'], [3, '🙂', 'Mais ou menos'], [4, '😃', 'Bastante'], [5, '🔥', 'Muito']],
         reage: v => v >= 4 ? 'Essa energia a gente aproveita!' : 'Tudo bem. Motivação vem com o processo, não antes.' },
-      { id: 'importancia', tipo: 'escolha', t: 'O quanto essa mudança é importante pra você?', ops: [
-        ['naoSei', 'Não sei dizer', '🤷‍♀️'], ['poucaDiferenca', 'Sei que é importante, mas não faz tanta diferença', '🤏'],
-        ['muito', 'Considero muito importante', '❤️‍🔥'], ['outro', 'Outro', '✍️']] },
       { id: 'importanciaPorque', tipo: 'texto-longo', t: 'E por quê?', ph: 'Escreve do seu jeito…', opcional: true }
     ]},
   { id: 'rotina', titulo: 'Seu dia a dia.', sub: 'Café com contexto: como é a sua rotina de verdade.', tema: 't-musgo',
