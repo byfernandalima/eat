@@ -195,7 +195,8 @@ const ETAPAS = [
     perguntas: [
       { id: 'menstrua', tipo: 'escolha', t: 'Você menstrua atualmente?', ops: [
         ['sim', 'Sim', '🩸'], ['gestante', 'Não, estou gestante', '🤰'], ['amamentando', 'Não, estou amamentando', '🤱'],
-        ['contraceptivo', 'Não, por anticoncepcional/DIU', '💊'], ['menopausa', 'Não, menopausa', '🌾']] },
+        ['contraceptivo', 'Não, por anticoncepcional/DIU', '💊'], ['menopausa', 'Não, menopausa', '🌾'], ['nao', 'Não', '🙅‍♀️']] },
+      { id: 'menstruaMotivo', tipo: 'texto-longo', t: 'Quer contar o motivo?', ph: 'Ex.: cirurgia, tratamento, estresse… só se quiser', opcional: true, se: a => a.menstrua === 'nao' },
       { id: 'dum', tipo: 'data', t: 'Data da última menstruação', ajuda: 'Se não lembrar o dia exato, chuta o mais próximo.', se: a => a.menstrua === 'sim' },
       { id: 'cicloRegular', tipo: 'escolha', t: 'Seu ciclo é regular?', se: a => a.menstrua === 'sim', ops: [['sim', 'Sim', '🌕'], ['nao', 'Não', '🌗']] },
       { id: 'fluxo', tipo: 'escolha', t: 'Como é seu fluxo?', se: a => a.menstrua === 'sim', ops: [['intenso', 'Intenso', '🌊'], ['regular', 'Regular', '💧'], ['pouco', 'Pouco', '💦']] },
@@ -422,6 +423,7 @@ function alertas(a) {
   const P = id => TODAS.find(p => p.id === id);
   const lista = (id, nada) => Array.isArray(a[id]) && a[id].length && !a[id].includes(nada || 'nenhum') ? formata(P(id), a[id]).replace(/(Outro|Outra)$|(Outro|Outra)(?=,)/, m => a[id + 'Outro'] ? `${m}: ${a[id + 'Outro']}` : m) : '';
   if (['gestante', 'amamentando'].includes(a.menstrua)) out.push(a.menstrua === 'gestante' ? 'Gestante' : 'Amamentando');
+  if (a.menstrua === 'nao') out.push('Não menstrua' + (a.menstruaMotivo ? `: ${String(a.menstruaMotivo).trim()}` : ' (motivo não informado)'));
   if (a.peso && a.pesoUsual && Math.abs(a.peso - a.pesoUsual) >= 3) {
     const d = a.peso - a.pesoUsual;
     out.push(`Peso atual ${d > 0 ? 'acima' : 'abaixo'} do usual em ${Math.abs(d).toFixed(1).replace('.', ',')} kg (${(Math.abs(d) / a.pesoUsual * 100).toFixed(1).replace('.', ',')}%)`);
