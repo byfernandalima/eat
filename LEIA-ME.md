@@ -87,7 +87,19 @@ Opcional: em **Authentication → Email Templates** dá para traduzir os e-mails
 
 ## 5. Publicar o site
 
-A pasta `anamnese/` é um site estático: não precisa de servidor próprio. Algumas opções gratuitas:
+**Endereço atual:** https://byfernandalima.github.io/eat/ (GitHub Pages, repositório `byfernandalima/eat`).
+
+Para publicar uma alteração, na pasta `anamnese/`:
+
+```
+git add -A
+git commit -m "descrição da mudança"
+git push
+```
+
+O site atualiza em 1 a 2 minutos.
+
+A pasta `anamnese/` é um site estático: não precisa de servidor próprio. Outras opções gratuitas:
 - **Netlify**: arraste a pasta `anamnese` em app.netlify.com/drop.
 - **Vercel** ou **GitHub Pages**.
 
