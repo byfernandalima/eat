@@ -158,29 +158,52 @@ async function carregaLista() {
 
 /* ============ lista ============ */
 function blocoLink() {
-  const iNome = h('input', { class: 'campo', placeholder: 'Nome da paciente (opcional)' });
+  const iNome = h('input', { class: 'campo', placeholder: 'Nome da paciente', required: true, autocomplete: 'off', 'aria-required': 'true' });
   const caixa = h('div', { class: 'linkbox' });
+  const aviso = h('p', { class: 'form-msg erro', role: 'alert', hidden: true }, 'Escreva o nome da paciente para gerar o link.');
+  const nome = () => iNome.value.trim().replace(/\s+/g, ' ');
   const montar = () => {
     const u = new URL(urlQuestionario()); u.searchParams.set('n', sessao.user.id);
-    if (iNome.value.trim()) u.searchParams.set('nome', iNome.value.trim());
+    u.searchParams.set('nome', nome());
     return u.toString();
   };
-  const atualiza = () => { caixa.textContent = montar(); };
-  iNome.addEventListener('input', atualiza); atualiza();
+  // sem nome não tem link: avisa, destaca o campo e não deixa copiar/abrir/enviar
+  const exigeNome = () => {
+    if (nome().length >= 2) return true;
+    aviso.hidden = false; iNome.classList.add('invalido'); iNome.focus();
+    return false;
+  };
+  const botoes = [];
+  const atualiza = () => {
+    const ok = nome().length >= 2;
+    caixa.textContent = ok ? montar() : 'O link aparece aqui depois que você escrever o nome da paciente.';
+    caixa.classList.toggle('vazio', !ok);
+    botoes.forEach(b => b.classList.toggle('desligado', !ok));
+    if (ok) { aviso.hidden = true; iNome.classList.remove('invalido'); }
+  };
+  iNome.addEventListener('input', atualiza);
   const copiar = h('button', { class: 'btn esc', type: 'button', onclick: async () => {
+    if (!exigeNome()) return;
     const url = montar();
     try { await navigator.clipboard.writeText(url); copiar.textContent = 'Copiado ✓'; setTimeout(() => copiar.textContent = 'Copiar link', 2000); }
     catch (_) { prompt('Copie o link:', url); }
   } }, 'Copiar link');
+  const abrir = h('a', { class: 'btn sec', target: '_blank', rel: 'noopener', href: '#', onclick: (e) => {
+    if (!exigeNome()) { e.preventDefault(); return; }
+    e.currentTarget.href = montar();
+  } }, 'Abrir questionário');
+  const zap = h('a', { class: 'btn sec', target: '_blank', rel: 'noopener', href: '#', onclick: (e) => {
+    if (!exigeNome()) { e.preventDefault(); return; }
+    e.currentTarget.href = 'https://wa.me/?text=' + encodeURIComponent(`Oi, ${primeiro(nome())}! Antes da nossa consulta, responde esse questionário rapidinho? Leva uns 10 minutos 💛
+${montar()}`);
+  } }, 'Mandar no WhatsApp');
+  botoes.push(copiar, abrir, zap); atualiza();
   return h('div', { class: 'bloco' },
     h('h2', null, 'Link para suas pacientes'),
-    h('p', { class: 'nota', style: 'margin-top:0' }, 'As respostas de quem abrir este link caem direto aqui no seu painel. Colocar o nome é opcional: a tela de boas-vindas já cumprimenta a paciente.'),
-    iNome, caixa,
-    h('div', { class: 'linha-btn' }, copiar,
-      h('a', { class: 'btn sec', target: '_blank', rel: 'noopener', href: '#', onclick: (e) => { e.currentTarget.href = montar(); } }, 'Abrir questionário'),
-      h('a', { class: 'btn sec', target: '_blank', rel: 'noopener', href: '#', onclick: (e) => {
-        e.currentTarget.href = 'https://wa.me/?text=' + encodeURIComponent(`Oi${iNome.value.trim() ? ', ' + primeiro(iNome.value) : ''}! Antes da nossa consulta, responde esse questionário rapidinho? Leva uns 10 minutos 💛\n${montar()}`);
-      } }, 'Mandar no WhatsApp')));
+    h('p', { class: 'nota', style: 'margin-top:0' }, 'Cada paciente recebe o próprio link, com o nome dela. As respostas caem direto aqui no seu painel, já com o nome certo.'),
+    h('label', { class: 'rotulo-campo' }, 'Nome da paciente ', h('span', { class: 'obrig', 'aria-hidden': 'true' }, '*')),
+    iNome, aviso, caixa,
+    h('div', { class: 'linha-btn' }, copiar, abrir, zap));
 }
 
 async function carregaPacientes() {
