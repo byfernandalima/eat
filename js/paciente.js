@@ -99,7 +99,8 @@ function reagir(p, v) {
   if (r) fala(r);
 }
 let autoTimer = null;
-function avancaSozinho() { clearTimeout(autoTimer); autoTimer = setTimeout(seguir, 650); }
+// a paciente decide quando seguir: escolher uma opção só marca a resposta, quem avança é o botão Continuar
+function avancaSozinho() { clearTimeout(autoTimer); }
 
 /* ============ campos ============ */
 function campo(p) {
