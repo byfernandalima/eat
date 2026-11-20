@@ -201,7 +201,7 @@ const ETAPAS = [
       { id: 'cicloRegular', tipo: 'escolha', t: 'Seu ciclo é regular?', se: a => a.menstrua === 'sim', ops: [['sim', 'Sim', '🌕'], ['nao', 'Não', '🌗']] },
       { id: 'fluxo', tipo: 'escolha', t: 'Como é seu fluxo?', se: a => a.menstrua === 'sim', ops: [['intenso', 'Intenso', '🌊'], ['regular', 'Regular', '💧'], ['pouco', 'Pouco', '💦']] },
       { id: 'colicas', tipo: 'escolha', t: 'Sente cólicas muito intensas?', se: a => a.menstrua === 'sim', ops: SIMNAO },
-      { id: 'sopEndo', tipo: 'escolha', t: 'Tem SOP (ovários policísticos) ou endometriose?', ops: SIMNAO },
+      { id: 'sopEndo', tipo: 'escolha', t: 'Tem SOP (ovários policísticos) ou endometriose?', ops: [...SIMNAO, ['naoSei', 'Não sei', '🤷‍♀️']] },
       { id: 'spm', tipo: 'multi', t: 'Sente sintomas de TPM? Marca os que aparecem.', se: a => a.menstrua === 'sim' || a.menstrua === 'contraceptivo', nenhum: 'nenhum', ops: [
         ['irritabilidade', 'Irritabilidade', '😤'], ['nervosismo', 'Nervosismo', '😬'], ['ansiedade', 'Ansiedade', '🌪️'], ['apetite', 'Mudança de apetite', '🍽️'],
         ['compulsaoCarbo', 'Compulsão por carboidrato/doce', '🍫'], ['fadiga', 'Fadiga', '🔋'], ['mamasSensiveis', 'Mamas maiores/sensíveis', '🎈'],
@@ -453,6 +453,7 @@ function alertas(a) {
   if (a.cicloRegular === 'nao') out.push('Ciclo menstrual irregular');
   if (a.colicas === 'sim') out.push('Cólicas intensas');
   if (a.sopEndo === 'sim') out.push('SOP ou endometriose');
+  if (a.sopEndo === 'naoSei') out.push('Não sabe se tem SOP ou endometriose');
   if (lista('spm')) out.push('TPM: ' + lista('spm'));
   if (a.saudeGeral && a.saudeGeral <= 2) out.push('Avalia a própria saúde como ruim');
   return out;
