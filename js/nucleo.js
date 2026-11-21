@@ -290,6 +290,7 @@ function slug(s) { return (s || 'paciente').normalize('NFD').replace(/[̀-ͯ]/g,
    no computador, no celular (inclusive Android, que não tem leitor de PDF no navegador) e em qualquer navegador. */
 function abreJanelaPDF() { return { ver: true, close() {} }; } // marca "visualizar" em vez de baixar
 function entregaPDF(doc, nome, modo) {
+  if (modo?.blob) return doc.output('blob'); // para enviar à área da paciente
   if (modo?.ver) return mostraPDF(doc.output('blob'), nome);
   doc.save(nome);
 }

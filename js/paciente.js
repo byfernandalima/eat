@@ -357,23 +357,11 @@ function figurinhasGanhas() {
   if ((S.a.agua || 0) >= 10) lista.push({ tipo: 'oval', cor: 't-lima', g: '💧 hidratada', s: 'de verdade', rot: 4 });
   return lista;
 }
-// Sair: apaga as respostas deste aparelho (privacidade em celular compartilhado) e se despede
+// Sair: apaga as respostas deste aparelho (privacidade em celular compartilhado) e leva para o "Entrar" da área da paciente
 function sair() {
-  const aviso = S.enviado
-    ? 'Sair agora? Suas respostas já estão com a sua nutri e serão apagadas deste aparelho.'
-    : 'Suas respostas ainda NÃO foram enviadas para a sua nutri. Se sair, elas serão apagadas deste aparelho. Sair mesmo assim?';
-  if (!confirm(aviso)) return;
-  const nome = primeiro(S.a.nome);
-  store.del(CHAVE_RASCUNHO); S = novoEstado(); S.a = {};
-  nav(null); const pts = document.getElementById('pts'); if (pts) pts.textContent = '0';
-  const palco = document.getElementById('palco');
-  palco.replaceChildren(h('section', { class: 'hero', style: 'padding-top:10px' },
-    mascote(true),
-    h('h1', null, nome ? `Até a consulta, ${nome}!` : 'Até a consulta!'),
-    h('p', { class: 'serif' }, 'Pode fechar esta página. Suas respostas foram apagadas deste aparelho.')));
-  window.scrollTo(0, 0);
-  // tenta fechar a aba depois da despedida; navegadores que não deixam (ex.: aberto pelo WhatsApp) ficam na tela de despedida
-  setTimeout(() => { try { window.close(); } catch (_) {} }, 2500);
+  if (!S.enviado && !confirm('Suas respostas ainda NÃO foram enviadas para a sua nutri. Se sair, elas serão apagadas deste aparelho. Sair mesmo assim?')) return;
+  store.del(CHAVE_RASCUNHO);
+  location.href = 'minha-area.html';
 }
 async function telaFinal(palco) {
   const nome = primeiro(S.a.nome);

@@ -14,6 +14,7 @@ async function abaPrescricoes(el) {
     h('div', { class: 'acoes-linha' },
       h('button', { class: 'link', type: 'button', onclick: () => { const w = abreJanelaPDF(); gerarReceituarioPDF(r, w).catch(e => { w?.close(); alert(e.message); }); } }, 'visualizar'),
       h('button', { class: 'link', type: 'button', onclick: () => gerarReceituarioPDF(r).catch(e => alert(e.message)) }, 'baixar'),
+      controleArea(r, () => gerarReceituarioPDF(r, { blob: true })),
       linkGovBr(),
       h('button', { class: 'link', type: 'button', onclick: () => abrir((fim) => formSuplementos(r, fim)) }, 'editar'),
       h('button', { class: 'link', type: 'button', onclick: async () => { if (confirm('Excluir esta prescrição?')) { await apagaRegistro(r); render(); } } }, 'excluir'))))
@@ -23,7 +24,7 @@ async function abaPrescricoes(el) {
     h('p', { class: 'nota', style: 'margin-top:0' }, 'Entram no PDF do plano quando você marcar na hora de gerar.'),
     ors.length ? ors.map(r => h('div', { class: 'linha-exame' },
       h('div', null, h('b', null, r.dados.titulo), h('div', { class: 'nota', style: 'margin:0' }, `${dataCurta(r.data)}${r.dados.categoria ? ' · ' + r.dados.categoria : ''}`)),
-      h('div', { class: 'acoes-linha' },
+      h('div', { class: 'acoes-linha' }, controleArea(r),
         h('button', { class: 'link', type: 'button', onclick: () => abrir((fim) => formOrientacao({ titulo: r.dados.titulo, categoria: r.dados.categoria, dados: r.dados, arquivo: r.arquivo }, async (v) => { await salvaRegistro('orientacao', r.data, { titulo: v.titulo, categoria: v.categoria, texto: v.texto, video: v.video }, v.arquivo, r.id); fim(); }, 'paciente')) }, 'editar'),
         h('button', { class: 'link', type: 'button', onclick: async () => { if (confirm('Excluir esta orientação?')) { await apagaRegistro(r); render(); } } }, 'excluir'))))
       : h('p', { class: 'vazio' }, 'Nenhuma orientação ainda.')));
@@ -145,7 +146,8 @@ async function imagemDataURL(caminho) {
 }
 
 /* ---------- opções do PDF do plano ---------- */
-function abrePDFPlano(reg) {
+function abrePDFPlano(reg, paraArea) {
+  let resolve, reject; const promessa = new Promise((ok, erro) => { resolve = ok; reject = erro; });
   const ors = doTipo('orientacao');
   const marc = new Set(ors.map(o => o.id));
   const cK = h('input', { type: 'checkbox' }), cL = h('input', { type: 'checkbox', checked: reg.dados.metodo === 'alimentos' ? true : null, disabled: reg.dados.metodo !== 'alimentos' ? true : null });
@@ -153,23 +155,32 @@ function abrePDFPlano(reg) {
   const iDias = h('input', { class: 'campo mini', inputmode: 'numeric', value: '7', style: 'max-width:70px' });
   const msg = msgEl();
   const dlg = h('div', { class: 'modal', role: 'dialog', 'aria-modal': 'true', 'aria-label': 'Gerar PDF do plano' }, h('div', { class: 'modal-caixa bloco' },
-    h('h2', null, 'PDF para a paciente'),
+    h('h2', null, paraArea ? 'Enviar para a área da paciente' : 'PDF para a paciente'),
+    paraArea ? h('p', { class: 'nota', style: 'margin-top:0' }, 'Ela vai ver este PDF na área dela. Se você mudar o plano depois, toque em "atualizar".') : null,
     h('label', { class: 'check' }, cK, 'Mostrar calorias e macronutrientes'),
     h('label', { class: 'check' }, cR, 'Incluir receitas usadas no plano'),
     h('label', { class: 'check' }, cL, 'Incluir lista de compras para ', iDias, ' dias'),
     ors.length ? h('div', null, h('h3', { class: 'sub' }, 'Orientações'), ors.map(o => { const c = h('input', { type: 'checkbox', checked: true }); c.addEventListener('change', () => c.checked ? marc.add(o.id) : marc.delete(o.id)); return h('label', { class: 'check' }, c, o.dados.titulo); })) : null,
     h('div', { class: 'linha-btn' },
-      h('button', { class: 'btn pri', type: 'button', onclick: (ev) => gera(ev.currentTarget, true) }, 'Visualizar'),
-      h('button', { class: 'btn sec', type: 'button', onclick: (ev) => gera(ev.currentTarget, false) }, 'Baixar PDF'),
-      h('button', { class: 'btn sec', type: 'button', onclick: () => dlg.remove() }, 'Cancelar')), msg));
+      paraArea ? h('button', { class: 'btn pri', type: 'button', onclick: (ev) => gera(ev.currentTarget, 'area') }, 'Enviar para a paciente') : null,
+      h('button', { class: paraArea ? 'btn sec' : 'btn pri', type: 'button', onclick: (ev) => gera(ev.currentTarget, true) }, 'Visualizar'),
+      paraArea ? null : h('button', { class: 'btn sec', type: 'button', onclick: (ev) => gera(ev.currentTarget, false) }, 'Baixar PDF'),
+      h('button', { class: 'btn sec', type: 'button', onclick: () => { dlg.remove(); if (paraArea) reject(new Error('cancelado')); } }, 'Cancelar')), msg));
   async function gera(botao, visualizar) {
+    if (visualizar === 'area') {
+      const rot = botao.textContent; botao.disabled = true; botao.textContent = 'Gerando…';
+      try { const blob = await gerarPlanoPDF(reg, { kcal: cK.checked, receitas: cR.checked, lista: cL.checked ? Math.max(1, num(iDias.value) || 7) : 0, orientacoes: ors.filter(o => marc.has(o.id)), janela: { blob: true } }); dlg.remove(); resolve(blob); }
+      catch (e) { avisa(msg, 'erro', 'Não deu para gerar o PDF: ' + e.message); botao.disabled = false; botao.textContent = rot; }
+      return;
+    }
     const janela = visualizar ? abreJanelaPDF() : null;
     const rot = botao.textContent; botao.disabled = true; botao.textContent = 'Gerando…';
     try { await gerarPlanoPDF(reg, { kcal: cK.checked, receitas: cR.checked, lista: cL.checked ? Math.max(1, num(iDias.value) || 7) : 0, orientacoes: ors.filter(o => marc.has(o.id)), janela }); dlg.remove(); }
     catch (e) { janela?.close(); avisa(msg, 'erro', 'Não deu para gerar o PDF: ' + e.message); botao.disabled = false; botao.textContent = rot; }
   }
-  dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.remove(); });
+  dlg.addEventListener('click', (e) => { if (e.target === dlg) { dlg.remove(); if (paraArea) reject(new Error('cancelado')); } });
   document.body.append(dlg);
+  return promessa;
 }
 
 async function gerarPlanoPDF(reg, op) {
@@ -234,7 +245,7 @@ async function gerarPlanoPDF(reg, op) {
     listaCompras(D, op.lista).forEach(gr => { c.titulo(gr.cat, COR_PDF.lima); gr.itens.forEach(i => c.texto(`[  ]  ${i.nome} — ${fmtPeso(i.gramas)}`, { recuo: 2, espaco: 0.5 })); });
   }
   c.rodape();
-  entregaPDF(doc, `plano-${slug(F.paciente.nome)}-${reg.data}.pdf`, op.janela);
+  return entregaPDF(doc, `plano-${slug(F.paciente.nome)}-${reg.data}.pdf`, op.janela);
 }
 
 async function gerarReceituarioPDF(reg, janela) {
@@ -268,5 +279,5 @@ async function gerarReceituarioPDF(reg, janela) {
   doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.setTextColor(...COR_PDF.bordo); doc.text(limpaPDF(perfil?.nome || ''), c.M, ya + 6);
   doc.setFont('helvetica', 'normal'); doc.setFontSize(10); doc.text(limpaPDF(`Nutricionista${textoCRN() ? ' · ' + textoCRN() : ''}`), c.M, ya + 11);
   c.rodape();
-  entregaPDF(doc, `prescricao-${slug(F.paciente.nome)}-${reg.data}.pdf`, janela);
+  return entregaPDF(doc, `prescricao-${slug(F.paciente.nome)}-${reg.data}.pdf`, janela);
 }

@@ -1,0 +1,66 @@
+/* ===== área da paciente ===== */
+.area-pac main{padding-bottom:80px}
+.topo-sair{margin-left:auto;padding:8px 16px;font-size:15px;border-radius:12px}
+.links-auth{display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:12px}
+
+.abas-pac{overflow-x:auto;scrollbar-width:none;position:sticky;top:62px;z-index:5}
+.abas-pac::-webkit-scrollbar{display:none}
+.abas-pac button{white-space:nowrap;padding:10px 12px}
+.chips.nutris{margin:6px 0 0}
+
+/* reaproveitados da ficha */
+.indicadores{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:12px 0}
+.ind{background:#fff;border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:2px}
+.ind small{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--suave)}
+.ind b{font-family:var(--titulo);font-size:24px;font-weight:800}
+.ind span{font-size:13px;color:var(--suave)}
+.tabela-wrap{overflow-x:auto;margin:12px -4px 0}
+.tabela{width:100%;border-collapse:collapse;font-size:14px;background:#fff;border-radius:12px;overflow:hidden}
+.tabela th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--suave);padding:10px;border-bottom:2px solid var(--linha);white-space:nowrap}
+.tabela td{padding:9px 10px;border-bottom:1px solid var(--linha);white-space:nowrap}
+
+/* início */
+.nutri-card{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px}
+.nutri-card .kicker{display:block;margin:0 0 2px}
+.nutri-nome{font-family:var(--titulo);font-weight:800;font-size:24px;letter-spacing:-.02em;display:block}
+.nutri-card .btn{padding:12px 18px;font-size:15px}
+.novidade{width:100%;display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--linha);border-radius:14px;padding:12px 14px;margin:0 0 8px;cursor:pointer;text-align:left;color:inherit;font:inherit}
+.novidade:hover{border-color:var(--bordo)}
+.novidade>span:nth-child(2){flex:1;display:flex;flex-direction:column}
+.novidade small,.item-plano small{color:var(--suave);font-size:13px}
+.nov-ic{font-size:24px;flex:none;width:42px;height:42px;border-radius:12px;background:var(--creme);display:grid;place-items:center}
+
+/* consultas */
+.consulta{background:#fff;border-radius:16px;padding:14px 16px;margin:0 0 10px;border:1px solid var(--linha)}
+.consulta.destaque{border:2px solid var(--bordo)}
+.cons-data b{font-family:var(--titulo);font-weight:800;font-size:20px;letter-spacing:-.01em;display:block}
+.cons-data b::first-letter{text-transform:uppercase}
+.cons-data span{font-weight:600}
+.cons-info{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:8px;font-size:14px;color:var(--suave)}
+.consulta .linha-btn{margin-top:12px}
+.consulta .btn{padding:12px 16px;font-size:15px}
+.selo-st{display:inline-block;border-radius:99px;padding:3px 10px;font-size:12px;font-weight:700;color:var(--bordo)}
+.st-agendada{background:#ffe1db}
+.st-confirmada{background:var(--lima)}
+.st-realizada{background:var(--creme)}
+.st-faltou{background:#eee;color:var(--suave)}
+
+/* avaliações */
+.graf{background:#fff;border-radius:16px;padding:12px 14px 6px;margin-top:12px}
+.graf .kicker{display:block;margin:0}
+.graf-svg{width:100%;height:auto;display:block}
+.lista-exames{display:flex;flex-direction:column;gap:6px}
+.ex-linha{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#fff;border-radius:12px;padding:10px 12px}
+.ex-nome{display:flex;flex-direction:column;font-weight:600}
+.ex-nome small{font-weight:400;color:var(--suave);font-size:12.5px}
+.ex-val{font-family:var(--titulo);font-weight:800;font-size:17px;white-space:nowrap;border-radius:10px;padding:4px 10px}
+.ex-val.st-alto,.ex-val.st-baixo{background:#ffe1db;color:#8a1300}
+.ex-val.st-normal{background:#eef4d6}
+
+/* planos */
+.item-plano{display:flex;flex-wrap:wrap;align-items:center;gap:12px;background:#fff;border-radius:14px;padding:12px 14px;margin:0 0 8px}
+.item-plano>div:nth-child(2){flex:1;min-width:150px;display:flex;flex-direction:column}
+.acoes-plano{display:flex;gap:8px}
+.acoes-plano .btn{padding:10px 16px;font-size:15px}
+.orientacao .kicker{display:block;margin:0 0 4px}
+.texto-or{white-space:pre-wrap;line-height:1.6;margin:0 0 8px}

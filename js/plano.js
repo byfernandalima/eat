@@ -106,6 +106,7 @@ async function abaPlano(el) {
       h('div', { class: 'acoes-linha' },
         h('button', { class: 'link', type: 'button', onclick: () => { editorPlano = { pac: F.paciente.id, id: r.id, data: r.data, dados: clona(r.dados) }; render(); } }, 'abrir'),
         h('button', { class: 'link', type: 'button', onclick: () => abrePDFPlano(r) }, 'PDF'),
+        controleArea(r, () => abrePDFPlano(r, true)),
         h('button', { class: 'link', type: 'button', onclick: () => { editorPlano = { pac: F.paciente.id, data: hoje(), dados: { ...clona(r.dados), titulo: (r.dados.titulo || 'Plano') + ' (cópia)', ativo: false }, sujo: true }; render(); } }, 'duplicar'),
         h('button', { class: 'link', type: 'button', onclick: async () => { if (confirm(`Excluir o plano "${r.dados.titulo}"?`)) { await apagaRegistro(r); render(); } } }, 'excluir')));
   })));

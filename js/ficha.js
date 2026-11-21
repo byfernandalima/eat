@@ -90,7 +90,8 @@ async function salvaRegistro(tipo, data, dados, arquivo, idExistente) {
   return novo;
 }
 async function apagaRegistro(reg) {
-  if (reg.arquivo) await supa.storage.from('arquivos').remove([reg.arquivo]);
+  const arqs = [reg.arquivo, reg.pdf_paciente].filter(Boolean);
+  if (arqs.length) await supa.storage.from('arquivos').remove(arqs);
   const { error } = await supa.from('registros').delete().eq('id', reg.id);
   if (error) throw error;
   F.registros = F.registros.filter(x => x.id !== reg.id);
@@ -194,7 +195,7 @@ function abaAntropometria(el) {
       h('tbody', null, linhas.map(({ r, c }) => h('tr', null,
         h('td', null, dataCurta(r.data)), h('td', null, fmtN(num(r.dados.peso))), h('td', null, fmtN(c.imc)), h('td', null, c.gordura != null ? fmtN(c.gordura) : '—'),
         h('td', null, c.massaMagra != null ? fmtN(c.massaMagra) : '—'), h('td', null, fmtN(num(r.dados.circ?.cintura))), h('td', null, c.rcq ? fmtN(c.rcq, 2) : '—'),
-        h('td', { class: 'acoes-linha' }, h('button', { class: 'link', type: 'button', onclick: () => abrir(r) }, 'abrir'),
+        h('td', { class: 'acoes-linha' }, controleArea(r), h('button', { class: 'link', type: 'button', onclick: () => abrir(r) }, 'abrir'),
           h('button', { class: 'link', type: 'button', onclick: async () => { if (confirm(`Excluir a avaliação de ${dataCurta(r.data)}?`)) { await apagaRegistro(r); render(); } } }, 'excluir')))))))));
 }
 
@@ -354,7 +355,7 @@ function abaExames(el) {
   el.append(h('div', { class: 'bloco' }, h('h2', null, 'Lançamentos'), lista.slice().reverse().map(r => h('div', { class: 'linha-exame' },
     h('div', null, h('b', null, dataCurta(r.data)), r.dados.laboratorio ? ` · ${r.dados.laboratorio}` : '',
       h('div', { class: 'nota', style: 'margin:0' }, `${Object.values(r.dados.valores || {}).filter(v => num(v) != null).length} resultados`)),
-    h('div', { class: 'acoes-linha' },
+    h('div', { class: 'acoes-linha' }, controleArea(r),
       r.arquivo ? h('button', { class: 'link', type: 'button', onclick: async () => { const u = await urlsAssinadas([r.arquivo]); if (u[r.arquivo]) window.open(u[r.arquivo], '_blank', 'noopener'); } }, 'abrir PDF') : null,
       r.arquivo && iaAtiva() ? h('button', { class: 'link ia', type: 'button', onclick: (ev) => lerExameComIA(r, ev.currentTarget, (sug) => abrir((fim) => formResultados(fim, r, sug))) }, '✦ ler com IA') : null,
       h('button', { class: 'link', type: 'button', onclick: () => abrir((fim) => formResultados(fim, r)) }, 'editar'),
@@ -561,6 +562,7 @@ async function abaFotos(el) {
 /* ---------- dados da paciente ---------- */
 function abaDados(el) {
   const p = F.paciente;
+  el.append(blocoAcessoPaciente());
   const c = (rot, k, attrs = {}) => { const i = h('input', { class: 'campo', value: p[k] || '', ...attrs }); return [h('label', null, rot), i]; };
   const [lN, iN] = c('Nome', 'nome'), [lE, iE] = c('E-mail', 'email', { type: 'email' }), [lT, iT] = c('Telefone', 'telefone', { type: 'tel' });
   const [lD, iD] = c('Data de nascimento', 'nascimento', { type: 'date', max: hoje() });

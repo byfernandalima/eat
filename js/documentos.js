@@ -69,6 +69,7 @@ async function abaDocumentos(el) {
     h('div', { class: 'acoes-linha' },
       h('button', { class: 'link', type: 'button', onclick: () => gerarDocumentoPDF(r, abreJanelaPDF()).catch(e => alert(e.message)) }, 'visualizar'),
       h('button', { class: 'link', type: 'button', onclick: () => gerarDocumentoPDF(r).catch(e => alert(e.message)) }, 'baixar'),
+      controleArea(r, () => gerarDocumentoPDF(r, { blob: true })),
       linkGovBr(),
       h('button', { class: 'link', type: 'button', onclick: () => { box.replaceChildren(formDocumento(r, () => { box.replaceChildren(); render(); })); box.scrollIntoView({ behavior: 'smooth' }); } }, 'editar'),
       h('button', { class: 'link', type: 'button', onclick: async () => { if (confirm('Excluir este documento?')) { await apagaRegistro(r); render(); } } }, 'excluir'))))
@@ -130,7 +131,7 @@ async function gerarDocumentoPDF(reg, janela) {
   doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.text(limpaPDF(perfil?.nome || ''), W / 2, y + 6, { align: 'center' });
   doc.setFont('helvetica', 'normal'); doc.setFontSize(10); doc.text(limpaPDF(['Nutricionista', crnTexto()].filter(Boolean).join(' · ')), W / 2, y + 11, { align: 'center' });
   rodapeTimbrado(doc);
-  entregaPDF(doc, `${slug(reg.dados.titulo)}-${slug(F.paciente.nome)}-${reg.data}.pdf`, janela);
+  return entregaPDF(doc, `${slug(reg.dados.titulo)}-${slug(F.paciente.nome)}-${reg.data}.pdf`, janela);
 }
 
 /* ---------- biblioteca: modelos próprios ---------- */

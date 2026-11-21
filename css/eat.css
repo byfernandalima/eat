@@ -253,3 +253,9 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border-radius:50%;bac
 .campo.invalido{border-color:var(--laranja);box-shadow:0 0 0 3px rgba(255,68,22,.18)}
 .linkbox.vazio{color:var(--suave);font-style:italic;word-break:normal}
 .btn.desligado{opacity:.45}
+
+/* área da paciente (lado da nutri) */
+.area-ctrl{display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap}
+.link.area{color:var(--musgo);font-weight:700}
+.selo-area{display:inline-block;background:var(--lima);color:var(--bordo);border-radius:99px;padding:2px 9px;font-size:12px;font-weight:700;white-space:nowrap}
+.painel .acesso-paciente{border:2px solid var(--lima)}

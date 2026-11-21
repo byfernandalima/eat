@@ -41,6 +41,7 @@ function render() {
   if (!supa) return telaSemConfig(palco);
   if (recuperandoSenha) return telaNovaSenha(palco);
   if (!sessao) return telaAuth(palco);
+  if (sessao.user.user_metadata?.papel === 'paciente') return telaContaPaciente(palco);
   const [rota, id] = location.hash.replace(/^#/, '').split('/');
   if (rota === 'p' && id) return telaDetalhe(palco, id);
   if (rota === 'pac' && id === 'nova') return telaNovaPaciente(palco);
@@ -141,6 +142,16 @@ function telaNovaSenha(palco) {
     } }, h('label', null, 'Nova senha'), i1, h('label', null, 'Repita a nova senha'), i2, botao, msg))));
 }
 
+// conta de paciente entrou no painel da nutri: manda para a área dela
+function telaContaPaciente(palco) {
+  palco.append(h('section', { class: 'auth painel' },
+    h('h1', null, 'Essa é uma conta de paciente.'),
+    h('div', { class: 'bloco' },
+      h('p', { style: 'margin-top:0' }, 'Este painel é só para nutricionistas. Suas consultas, anamnese e planos ficam na sua área.'),
+      h('div', { class: 'linha-btn' },
+        h('a', { class: 'btn pri', href: 'minha-area.html' }, 'Ir para a minha área'),
+        h('button', { class: 'btn sec', type: 'button', onclick: sair }, 'Sair')))));
+}
 async function sair() { await supa.auth.signOut(); lista = null; listaPacientes = null; perfil = null; F = null; location.hash = ''; }
 
 /* ============ dados ============ */

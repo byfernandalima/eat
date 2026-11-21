@@ -7,6 +7,7 @@ O sistema tem duas telas:
 | `index.html` | Visitantes | Página inicial: apresenta o ëat e leva para criar conta ou entrar. |
 | `anamnese.html` | Paciente | Questionário interativo. Pelo link da nutri, as respostas vão direto para o banco. |
 | `confirmar.html` | Paciente | Confirmação de consulta pelo link do WhatsApp. |
+| `minha-area.html` | Paciente | Área da paciente: consultas, anamnese, avaliações e planos liberados pela nutri. |
 | `painel.html` | Nutricionista | Login com e-mail e senha, link pessoal para pacientes, lista e ficha de cada anamnese, PDF. |
 
 As contas e as respostas ficam no **Supabase** (banco de dados + login). O plano gratuito dá para começar.
@@ -48,6 +49,14 @@ Depois, rode `supabase/fase4.sql`. Ele cria a **biblioteca** da nutri (receitas,
 3. Publique também `confirmar.html` junto com o site: é a página onde a paciente confirma a consulta.
 
 A teleconsulta usa o **Google Meet**: salve um link fixo de reunião no Perfil (ou cole um link próprio em cada consulta online).
+
+### Área da paciente (fase 6)
+
+1. Rode `supabase/fase6.sql`. Ele cria o convite de acesso, as funções que mostram à paciente só o que é dela e a regra que deixa ela abrir só os PDFs liberados.
+2. Na ficha da paciente → aba **Dados** → **Liberar acesso**: gera um link (vale 30 dias, uso único) para ela criar a senha em `minha-area.html`.
+3. Nas abas Antropometria, Exames, Plano alimentar, Prescrições e Documentos, toque em **mostrar para a paciente** no que ela deve ver. Planos, prescrições e documentos vão como o mesmo PDF que você gera; se mudar algo depois, toque em **atualizar**.
+
+Ela sempre vê as consultas da agenda (sem valor nem observações internas) e as anamneses dela.
 
 ### Funções de IA (fase 3)
 
