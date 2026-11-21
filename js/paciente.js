@@ -357,6 +357,24 @@ function figurinhasGanhas() {
   if ((S.a.agua || 0) >= 10) lista.push({ tipo: 'oval', cor: 't-lima', g: '💧 hidratada', s: 'de verdade', rot: 4 });
   return lista;
 }
+// Sair: apaga as respostas deste aparelho (privacidade em celular compartilhado) e se despede
+function sair() {
+  const aviso = S.enviado
+    ? 'Sair agora? Suas respostas já estão com a sua nutri e serão apagadas deste aparelho.'
+    : 'Suas respostas ainda NÃO foram enviadas para a sua nutri. Se sair, elas serão apagadas deste aparelho. Sair mesmo assim?';
+  if (!confirm(aviso)) return;
+  const nome = primeiro(S.a.nome);
+  store.del(CHAVE_RASCUNHO); S = novoEstado(); S.a = {};
+  nav(null); const pts = document.getElementById('pts'); if (pts) pts.textContent = '0';
+  const palco = document.getElementById('palco');
+  palco.replaceChildren(h('section', { class: 'hero', style: 'padding-top:10px' },
+    mascote(true),
+    h('h1', null, nome ? `Até a consulta, ${nome}!` : 'Até a consulta!'),
+    h('p', { class: 'serif' }, 'Pode fechar esta página. Suas respostas foram apagadas deste aparelho.')));
+  window.scrollTo(0, 0);
+  // tenta fechar a aba depois da despedida; navegadores que não deixam (ex.: aberto pelo WhatsApp) ficam na tela de despedida
+  setTimeout(() => { try { window.close(); } catch (_) {} }, 2500);
+}
 async function telaFinal(palco) {
   const nome = primeiro(S.a.nome);
   salvar();
@@ -405,7 +423,8 @@ async function telaFinal(palco) {
       h('button', { class: 'link', type: 'button', onclick: () => { S.i = 1; S.enviado = false; salvar(); render(); } }, S.enviado ? 'corrigir alguma resposta' : 'revisar respostas'),
       S.enviado ? h('button', { class: 'link', type: 'button', onclick: () => {
         if (confirm('Começar uma anamnese nova, para outra pessoa? As respostas desta tela saem deste aparelho (a nutri já recebeu).')) { store.del(CHAVE_RASCUNHO); S = novoEstado(); S.a = {}; salvar(); render(); }
-      } }, 'responder para outra pessoa') : null),
+      } }, 'responder para outra pessoa') : null,
+      h('button', { class: 'btn sec sair', type: 'button', onclick: sair }, 'Sair')),
     h('p', { class: 'nota' }, S.enviado
       ? 'Se corrigir alguma resposta, é só enviar de novo no final: a versão da sua nutri é atualizada.'
       : 'Ao enviar pelo WhatsApp, vai junto um código que a nutri usa para abrir tudo organizado no painel.')));
